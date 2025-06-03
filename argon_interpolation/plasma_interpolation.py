@@ -138,9 +138,9 @@ def logarithmic_model(x, a, b):
 
 argon_df = {
     "P_Pa": [10, 20, 40, 60],  # Pressures in Pascal
-    "1mA_n": [2.81 , 2.93, 4.01, 4.26],  # Electron density (10^8 cm^-3) 10Pa = 2.81, 20PA = 2.43 original, 40Pa = 4.26 [#CORRECTED]
+    "1mA_n": [2.81 , 2.63, 4.01, 4.26],  # Electron density (10^8 cm^-3) 10Pa = 2.81, 20PA = 2.43 original, 40Pa = 4.26 [#CORRECTED]
     "1mA_T": [4.23, 4.41, 4.62, 4.65],  # MODEL DATA
-    "1mA_E": [1.98, 2.265, 2.76, 2.81],  # Electric field (V/cm) #CORRECTED
+    "1mA_E": [2.05, 2.285, 2.755, 2.765],  # Electric field (V/cm) #CORRECTED
     "2mA_n": [5.43, 8.04, 7.48],  # Electron density (10^8 cm^-3) 20 - 40 Pa #CORRECTED
     "2mA_T": [4.3, 4.58, 4.6],  # MODEL DATA
     "2mA_E": [3.55, 3.65, 3.85],  # MODEL DATA

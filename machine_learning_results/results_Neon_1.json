@@ -1,16 +1,16 @@
 {
     "pos": {
-        "E_multiplier": 0.9669812361649179,
-        "ne_multiplier": 0.9181241656462893,
-        "Te_multiplier": 0.8743014137682356,
-        "z_multiplier": 1.3036330945204189,
-        "error": 54.13097307687595
+        "E_multiplier": 1.134939425904378,
+        "ne_multiplier": 1.02,
+        "Te_multiplier": 0.9450358999999239,
+        "z_multiplier": 0.9470787030035677,
+        "error": 54.54478756748904
     },
     "neg": {
-        "E_multiplier": 1.1679699110180615,
+        "E_multiplier": 1.3833495867055308,
         "ne_multiplier": 1.02,
-        "Te_multiplier": 1.02,
-        "z_multiplier": 1.5,
-        "error": 54.23555749962324
+        "Te_multiplier": 0.96,
+        "z_multiplier": 1.0924999999999998,
+        "error": 77.62422139393593
     }
 }
