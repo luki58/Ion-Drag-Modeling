@@ -172,7 +172,7 @@ plt.show()
 # =============================================================================
 
 gas_type = "Argon"
-current = "1p5mA"
+current = "1mA"
 
 file_paths_fi = [
     "json_files/exp/Argon_1p5mA_exp.json",
@@ -437,7 +437,7 @@ for i, param in enumerate(parameters):
     
     for dataset_name, dataset in parsed_data_correct.items():
         for polarity, params in dataset.items():
-            if polarity == "pos":
+            if polarity == "neg":
                 linestyle = "solid"
 
                 # Extract current dataset value and modify label if necessary
@@ -467,15 +467,24 @@ for i, param in enumerate(parameters):
                 )
 
     # Add experimental data
+    # & Pustylnik Exp Data Neon manuel
     if param == "T_e":
         ax.errorbar(argon_df["P_Pa"], argon_df["1mA_T"], yerr=2, color="#5EC962", capsize=3, linewidth=0.75, fmt="^", ecolor="black", label="$T_e^{*}$ (Argon, 1mA)")
         ax.errorbar(argon_df["P_Pa"], argon_df["2mA_T"], yerr=2, color="black", capsize=3, linewidth=0.75, fmt="x", label="$T_e^{*}$ (Argon, 2mA)")
+        T_e = [[14.8, 19.8, 29.6, 49.8, 70, 100],[6.72, 7.73, 7.97, 7.28, 7.1, 6.14]]
+        ax.errorbar(T_e[0], T_e[1], yerr=2, color="#FFC107", capsize=3, linewidth=0.75, fmt="s", ecolor="gray", label="$T_e^{*}$ (Neon, 1mA)")
     elif param == "n_e":
         ax.errorbar(argon_df["P_Pa"], np.array(argon_df["1mA_n"])*(10)**14, yerr=1*(10)**14, color="#5EC962", linewidth=0.75, capsize=3, fmt="^", ecolor="black", label="$n_e^{*}$ (Argon, 1mA)")
         ax.errorbar(argon_df["P_Pa"], np.array(argon_df["2mA_n"])*(10)**14, yerr=1*(10)**14, color="black", linewidth=0.75, capsize=3, fmt="x", label="$n_e^{*}$ (Argon, 2mA)")
+        n_e0 = [[14.8, 19.8, 29.6, 49.8, 70, 100],np.array([1.43, 1.56, 1.71, 2.86, 3.78, 3.93])*10**14]
+        ax.errorbar(n_e0[0], n_e0[1], yerr=np.array([1.43, 1.56, 1.71, 2.86, 3.78, 3.93])*0.2*10**14, color="#FFC107", capsize=3, linewidth=0.75, fmt="s", ecolor="gray", label="$n_e^{*}$ (Neon, 1mA)")
     elif param == "E_0":
         ax.errorbar(argon_df["P_Pa"], np.array(argon_df["1mA_E"])*(-100), yerr=50, color="#5EC962", fmt="^", ecolor="black", linewidth=0.75, capsize=3, label="$E_0^{*}$ (Argon, 1mA)")
         ax.errorbar(argon_df["P_Pa"], np.array(argon_df["2mA_E"])*(-100), yerr=50, color="black", fmt="x", linewidth=0.75, capsize=3, label="$E_0^{*}$ (Argon, 2mA)")
+        E_0 = [[14.8, 19.8, 29.6, 49.8, 70, 100],[-193, -203, -205, -208, -243, -206]]
+        ax.errorbar(E_0[0], E_0[1], yerr=50, color="#FFC107", capsize=3, linewidth=0.75, fmt="s", ecolor="gray", label="$E_e^{*}$ (Neon, 1mA)")
+
+
 
     #ax.set_title(titles[i])
     ax.set_xlabel("Pressure (Pa)")
@@ -491,9 +500,9 @@ plt.show()
 # Scattering parameter \beta
 # =============================================================================
 
-plt.figure(figsize=(5.5, 3), dpi=400)
+plt.figure(figsize=(4.5, 2.8), dpi=400)
 
-gas_type = "Argon"
+gas_type = "Neon"
 polarity = "neg"
 
 file_paths = [
@@ -529,7 +538,7 @@ for file in file_paths:
             label_text = r"$\beta_T^{weak,int}$ (1 mA)"
         else:
             label_text = r"$\beta_T^{hybrid} \,\,\,\,\,\,$ (1 mA)"
-        plt.errorbar(pressures, np.array(json_data[polarity]["beta_T"]), yerr=np.array(json_data[polarity]["beta_T_error"]), fmt="x", color=color_list[i], linewidth=.7, markersize=4, capsize=2, ecolor='black', label=label_text)#, mfc='w')
+        plt.errorbar(pressures, np.array(json_data[polarity]["beta_T"]), yerr=np.array(json_data[polarity]["beta_T_error"]), fmt="^", color=color_list[i], linewidth=.7, markersize=4, capsize=2, ecolor='black', label=label_text, mfc='w')
         #plt.errorbar(pressures, np.array(json_data["neg"]["beta_T"]), yerr=np.array(json_data["neg"]["beta_T"])*0.05, fmt=marker_list[i], color=color_list[i], label=r'$\beta_T$ ' + file.split('/')[2].split('_')[0].split('.')[0] + ' pos & neg', linewidth=.7, markersize=4, capsize=2, ecolor='black', mfc='w')
         i+=1
 
@@ -537,7 +546,7 @@ for file in file_paths:
 plt.xlabel('Pressure [Pa]')
 plt.ylabel(r'Scattering Parameter $\beta_T$')
 plt.grid(color='gray', linestyle='--', linewidth=0.2)
-plt.legend(loc='upper right')
+plt.legend(loc='upper right', fontsize=10)
 #plt.title(gas_type)
 plt.ylim( 0 , 2.8)
 plt.show()
@@ -816,7 +825,7 @@ for file_path in file_path_theory_1p5mA:
 
 # Labels, title, and legend
 plt.xlabel('Pressure [Pa]')
-plt.ylabel('$F_n / F_{e}$')
+plt.ylabel('$F_n / F_{E}$')
 # Adding grid, legend, and title
 plt.grid(color='grey', linestyle='--', linewidth=0.4, alpha=0.5)
 

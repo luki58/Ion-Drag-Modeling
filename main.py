@@ -58,29 +58,30 @@ def save_to_json(gas_type, I, best_values):
 def bayesian_search(gas_type, I, polarity, max_iters):
     """Bayesian optimization to find best (E_multiplier, ne_multiplier, Te_multiplier)."""
     multipliers = {
-        ("Argon", 1.5, "neg"): (0.7, 0.65, 1.15, 1.05),
-        ("Argon", 1.5, "pos"): (0.7, 0.65, 1.15, 1.05),
-        ("Argon", 1.0, "neg"): (1.5, 0.75, 1.15, 1.05),
-        ("Argon", 1.0, "pos"): (1.5, 0.75, 1.15, 1.05),
-        ("Neon", 1.0, "pos"): (1, 0.85, 0.8, 0.95),
-        ("Neon", 1.0, "neg"): (1, 0.85, 0.8, 0.95),
+        ("Argon", 1.5, "neg"): (0.7, 0.65, 1.05, 1.05),
+        ("Argon", 1.5, "pos"): (0.7, 0.65, 1.05, 1.05),
+        ("Argon", 1.0, "neg"): (0.8, 0.8, 1.0, 1.05),
+        ("Argon", 1.0, "pos"): (0.8, 0.8, 1.0, 1.05),
+        ("Neon", 1.0, "pos"): (0.9, 0.8, 0.8, 0.95),
+        ("Neon", 1.0, "neg"): (0.9, 0.8, 0.8, 0.95),
         ("Neon", 1.5, "pos"): (1.1, 0.85, 0.85, 0.95),
         ("Neon", 1.5, "neg"): (1.1, 0.85, 0.85, 0.95)
     }
     
     E_base, ne_base, Te_base, z_base = multipliers.get((gas_type, I, polarity), (0.9, 0.8, 1.0, 1.0))
     space = [
-        Real(E_base * 0.9, E_base * 2., name="E_multiplier"),
-        Real(ne_base * 0.8, ne_base * 1.2, name="ne_multiplier"),
+        Real(E_base * 0.9, E_base * 2.1, name="E_multiplier"),
+        Real(ne_base * 0.7, ne_base * 1.3, name="ne_multiplier"),
         Real(Te_base * 0.8, Te_base * 1.2, name="Te_multiplier"),
-        Real(z_base * 0.859, z_base * 1.15, name="z_multiplier")
+        Real(z_base * 1.1, z_base * 1.15, name="z_multiplier")
+        #Real(z_base * 0.859, z_base * 1.15, name="z_multiplier")
     ]
     
     @use_named_args(space)
     def wrapped_objective(E_multiplier, ne_multiplier, Te_multiplier, z_multiplier):
         return objective([E_multiplier, ne_multiplier, Te_multiplier, z_multiplier], gas_type, I, polarity)
     
-    result = gp_minimize(wrapped_objective, space, n_calls=max_iters, acq_func="PI", xi=0.0175, n_jobs=12)  # or "PI" or "EI")
+    result = gp_minimize(wrapped_objective, space, n_calls=max_iters, acq_func="PI", xi=0.0175, n_jobs=-1)  # or "PI" or "EI")
     
     errors = result.func_vals  # all evaluated f(x)
     min_so_far = [min(errors[:i+1]) for i in range(len(errors))]
@@ -114,7 +115,7 @@ polarities = ["pos","neg"]#"pos",
 best_parameters = {}
 start_time = time.time()
 # max search iterations
-cycles = 70
+cycles = 100
 
 #%%
 # Run Bayesian Optimization for all combinations

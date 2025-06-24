@@ -170,11 +170,11 @@ def compute_model_error(gastype, current, model):
     
     #print (error_neg + error_fi_neg, error_pos + error_fi_pos)
     if model == "Khrapak":
-        result_neg = error_neg + error_fi_neg
-        result_pos = error_pos + error_fi_pos
+        result_neg = abs(error_neg) + abs(error_fi_neg)
+        result_pos = abs(error_pos) + abs(error_fi_pos)
     else:
-        result_neg = error_neg
-        result_pos = error_pos
+        result_neg = abs(error_neg)
+        result_pos = abs(error_pos)
 
     return {
         "error_neg": result_neg,

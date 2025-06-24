@@ -138,14 +138,15 @@ def logarithmic_model(x, a, b):
 
 argon_df = {
     "P_Pa": [10, 20, 40, 60],  # Pressures in Pascal
-    "1mA_n": [2.81 , 2.63, 4.01, 4.26],  # Electron density (10^8 cm^-3) 10Pa = 2.81, 20PA = 2.43 original, 40Pa = 4.26 [#CORRECTED]
+    "1mA_n": [1.98 , 2.53, 4.01, 3.26],  # Electron density (10^8 cm^-3) 10Pa = 2.81, 20PA = 2.43 original, 40Pa = 4.26 [#CORRECTED]
     "1mA_T": [4.23, 4.41, 4.62, 4.65],  # MODEL DATA
-    "1mA_E": [2.05, 2.285, 2.755, 2.765],  # Electric field (V/cm) #CORRECTED
-    "2mA_n": [5.43, 8.04, 7.48],  # Electron density (10^8 cm^-3) 20 - 40 Pa #CORRECTED
+    "1mA_E": [2.31, 2.53, 2.755, 2.76],  # Electric field (V/cm) #CORRECTED
+    "2mA_n": [4.65, 8.04, 7.78],  # Electron density (10^8 cm^-3) 20 - 40 Pa #CORRECTED
     "2mA_T": [4.3, 4.58, 4.6],  # MODEL DATA
-    "2mA_E": [3.55, 3.65, 3.85],  # MODEL DATA
+    "2mA_E": [3.47, 3.65, 3.84],  # MODEL DATA
 }
-
+#[2.81 , 2.63, 4.01, 4.26]
+#[5.43, 8.04, 7.48]
 data_points_topolot_T = [[4.13, 4.555, 4.795, 5.23],[4.94, 5.08, 4.37]] #"1mA_T" & "2mA_T" # Electron temperature (eV)
 
 data_points_topolot_n = [[2.81 , 4.43, 4.01, 3.26],[7.43, 8.14, 6.22]]
@@ -158,20 +159,20 @@ current = "1p5mA"
 
 if current == "1mA":
     x_data = np.array(argon_df["P_Pa"])
-    x_data_n = np.array(argon_df["P_Pa"][1:])
-    y_data_n = np.array(argon_df["1mA_n"][1:])
+    x_data_n = np.array(argon_df["P_Pa"][:])
+    y_data_n = np.array(argon_df["1mA_n"][:])
     y_data_T = np.array(argon_df["1mA_T"])
-    y_data_E = np.array(argon_df["1mA_E"]) 
+    y_data_E = np.array(argon_df["1mA_E"])
 elif current == "2mA":
     x_data_n = np.array(argon_df["P_Pa"][1:])
     y_data_n = np.array(argon_df["2mA_n"])
     y_data_T = np.array(argon_df["2mA_T"])
-    y_data_E = np.array(argon_df["2mA_E"]) 
+    y_data_E = np.array(argon_df["2mA_E"])
 elif current == "1p5mA":
     x_data_n = np.array(argon_df["P_Pa"][1:])
     y_data_n = 0.5 * (np.array(argon_df["1mA_n"][1:]) + np.array(argon_df["2mA_n"]))  # Interpolated n np.array(argon_df["P_Pa"][1:])
     y_data_T = 0.5 * (np.array(argon_df["1mA_T"][1:]) + np.array(argon_df["2mA_T"]))
-    y_data_E = 0.5 * (np.array(argon_df["1mA_E"][1:]) + np.array(argon_df["2mA_E"])) 
+    y_data_E = 0.5 * (np.array(argon_df["1mA_E"][1:]) + np.array(argon_df["2mA_E"]))
 else:
     print("Wrong Input")
 

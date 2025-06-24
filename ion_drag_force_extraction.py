@@ -49,7 +49,7 @@ def extract_plasma_data(data, current, pressure_range):
     pressure_data = np.array(data[current]["Pressure (Pa)"])
     E_0 = np.array(data[current]["E"])  # Electric field strength
     T_e = np.array(data[current]["T"])  # Electron temperature
-    n_e0 = np.array(data["1mA"]["n"])  # Electron number density
+    n_e0 = np.array(data[current]["n"])  # Electron number density
 
     # Interpolate to match the requested pressure range
     E_0_interp = np.interp(pressure_range, pressure_data, E_0)
