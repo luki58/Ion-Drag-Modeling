@@ -22,7 +22,7 @@ Particle reconstruction is optimized using a **machine learning–based Self-Org
 
 - **Particle positions** are extracted from images using a **trained U-Net** model.  
 - **Plasma parameters** are derived from model equations and **optimized via Bayesian optimization**, validated against experimental data.  
-- Refer to **Figure 2** in the publication for a visual summary of this workflow.  
+- Refer to **Figure 2** and **Figure 6** in the publication for a visual summary of this workflow.  
 
 All **final data and analysis results** are available within this repository.  
 
