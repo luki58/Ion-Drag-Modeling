@@ -29,6 +29,7 @@ All **final data and analysis results** are available within this repository.
 ### Run  
 ```bash
 main.py
+``` 
 
 ---
 
