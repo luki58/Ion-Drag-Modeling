@@ -26,6 +26,10 @@ Particle reconstruction is optimized using a **machine learning–based Self-Org
 
 All **final data and analysis results** are available within this repository.  
 
+### Run  
+```bash
+main.py
+
 ---
 
 ## Self-Organizing Map (SOM) for Particle Tracking  
@@ -34,7 +38,3 @@ This is a reworked and improved Version of a Self Organizing Map for particle tr
 See Reworked SOM.ipynb for an example of use.
 
 Using a trained U-Net particle positions are read out from images. The particle positions of two images are read into the SOM. In this step the particles are numbered by adding a third row to each array ((x-coord, y-coord, number)), whereby no numbers are duplicated. Using the matching feature of the SOM the numbering of the particles of the second image, that match with a particle in the first image, are modified to be the same. The numbering of all unmatched particles remains unchanged. For particle matching in large images (size 2048x2048) another function that splits the image up into 16 smaller blocks and matches particles in there seperately for better performance is used. For particle tracing in image sequences, multiprocessing is used for speed up. The matched coordinates are appended in a specific way so that a tracing algorithm connects all matched particles over the image series. By doing that particle traces are extracted. For a quick analysis a quiver plot feature is implemented, that plots a quiver plot using particles of only 2 images. 
- 
-### Run  
-```bash
-main.py
